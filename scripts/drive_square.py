@@ -21,17 +21,22 @@ class DriveSquare(object):
             angular=Vector3(0, 0, 0)
         )
 
+        #1.57 radian is 90 degrees
+        turn_right = Twist(
+            linear=Vector3(0, 0, 0),
+            angular=Vector3(0, 0, -1.63)
+        )
+
+        stop = Twist(
+            linear=Vector3(0, 0, 0),
+            angular=Vector3(0, 0, 0)
+        )
+
         # allow the publisher enough time to set up before publishing the first msg
         rospy.sleep(1)
 
         # publish the message
         self.robot_movement_pub.publish(move_forward)
-
-
-        turn_right = Twist(
-            linear=Vector3(0, 0, 0),
-            angular=Vector3(0, 0, -1.60)
-        )
 
         rospy.sleep(1)
 
@@ -42,11 +47,25 @@ class DriveSquare(object):
         self.robot_movement_pub.publish(move_forward)
 
         rospy.sleep(1)
+
+        self.robot_movement_pub.publish(turn_right)
+
+        rospy.sleep(1)
+
+        self.robot_movement_pub.publish(move_forward)
+
+        rospy.sleep(1)
+
+        self.robot_movement_pub.publish(turn_right)
+
+        rospy.sleep(1)
+
+        self.robot_movement_pub.publish(move_forward)
         
-        stop = Twist(
-            linear=Vector3(0, 0, 0),
-            angular=Vector3(0, 0, 0)
-        )
+        rospy.sleep(1)
+        self.robot_movement_pub.publish(turn_right)
+
+        rospy.sleep(1)
 
         self.robot_movement_pub.publish(stop)
 
