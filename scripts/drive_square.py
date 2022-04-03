@@ -14,6 +14,7 @@ class DriveSquare(object):
         # setup publisher to the cmd_vel ROS topic
         self.robot_movement_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
 
+
     def run(self):
         # setup the Twist message that moves the robot forward
         move_forward = Twist(
