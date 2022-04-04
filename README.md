@@ -39,6 +39,6 @@ In progress.
 ### Wall Follower
 In progress. 
 
-## Takeaways (at least 2 bullet points with a few sentences per bullet point): 
-* 
-What are your key takeaways from this project that would help you/others in future robot programming assignments? For each takeaway, provide a few sentences of elaboration.
+## Takeaways: 
+* In order to control the robot, we need to setup a publisher and a subscriber. The publisher sends messages to the robot and tells the robot what to do next or where to move to. The subscriber receives the scans from the robot about its environment.
+* It is important to give the robot some time in between two messages, so that the robot would have enough time to perform the task described in each message.
