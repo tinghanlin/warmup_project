@@ -25,9 +25,12 @@ In progress.
 ### Wall Follower
 In progress. 
 
-## Challenges (1 paragraph): 
-Describe the challenges you faced programming these robot behaviors and how you overcame them.
-## Future work (1 paragraph): 
+## Challenges: 
+* Computer Setup: I encountered many challenges using Virtual Box VM to control the robot. I would experience sudden extreme lags every hour and would be forced to send the shutdown signal to the VM. causing my temporary work not to be saved. Thanks to Colin, I am now able to use Virtual Box VM without experiencing extreme lags. Also thanks to David (TA), I am able to type even faster on the VM after adopting his tip in setting Virtual Box to low resolution mode.
+
+## Future work: 
+
 If you had more time, how would you improve your robot behaviors?
 ## Takeaways (at least 2 bullet points with a few sentences per bullet point): 
+* 
 What are your key takeaways from this project that would help you/others in future robot programming assignments? For each takeaway, provide a few sentences of elaboration.
