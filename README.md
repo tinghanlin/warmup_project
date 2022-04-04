@@ -30,7 +30,15 @@ In progress.
 
 ## Future work: 
 
-If you had more time, how would you improve your robot behaviors?
+### Driving in a Square
+If I have more time, I will think about how to ensure the robot to stop at the exact same location where it starts to drive in the square. This would probably require putting marks on the ground and let the robot sense those location.
+
+### Person Follower
+In progress.
+
+### Wall Follower
+In progress. 
+
 ## Takeaways (at least 2 bullet points with a few sentences per bullet point): 
 * 
 What are your key takeaways from this project that would help you/others in future robot programming assignments? For each takeaway, provide a few sentences of elaboration.
