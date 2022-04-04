@@ -5,7 +5,9 @@
 ### Driving in a Square
 * High-level Description
 
-The task is to drive the robot in a square, so I wrote my code to drive the robot in a square clockwise. The robot would first move forward, then turn right 90 degrees. These two actions would be completed by the robot for 4 times. By the time that the robot drives in a square, the robot will stop at its initial location. 
+  The task is to drive the robot in a square, so I wrote my code to drive the robot in a square clockwise. The robot would first move forward, then turn right 90 degrees. These two actions would be completed by the robot for 4 times (see the following graph). By the time that the robot drives in a square, the robot will stop at its initial location. 
+ 
+  <img src="drive_square_illustration.png" width="300" height="300" />
 
 
 
@@ -22,9 +24,6 @@ In progress.
 
 ### Wall Follower
 In progress. 
-
-For each robot behavior, please provide the following:
-A high-level description (a few sentences): Describe the problem and your approach at a high-level. Include any relevant diagrams or pictures that help to explain your approach.
 
 ## Challenges (1 paragraph): 
 Describe the challenges you faced programming these robot behaviors and how you overcame them.
