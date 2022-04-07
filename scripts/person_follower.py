@@ -14,11 +14,8 @@ from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
 
-# How close we will get to wall.
-distance = 0.4
-
-class StopAtWall(object):
-    """ This node walks the robot to follow a person """
+class PersonFollower(object):
+    """ This node controls the robot to follow a person """
 
     def __init__(self):
         # Start rospy node.
@@ -37,84 +34,49 @@ class StopAtWall(object):
         self.twist = Twist(linear=lin,angular=ang)
 
     def process_scan(self, data):
-        # Determine closeness to wall by looking at scan data from in front of
-        #   the robot, set linear velocity based on that information, and
-        #   publish to cmd_vel.
-
+        # Determine where the person is using the 360 degree scan data and 
+        # set the linear velocity and angular velocity.
 
         # The ranges field is a list of 360 number where each number
-        #   corresponds to the distance to the closest obstacle from the
-        #   LiDAR at various angles. Each measurement is 1 degree apart.
+        # corresponds to the to the closest obstacle from the
+        # LiDAR at various angles. Each measurement is 1 degree apart
         
-        #need to count the second min value to 0.0
-
-        print("print type",type(data.ranges))
+        # data.ranges is a tuple object, so I convert it to a list
+        # so that I can modify values in it.
         distance_ranges = list(data.ranges)
 
+        # replace 0.0 by another value, I choose 10000000
         for i in range(len(distance_ranges)):
             if distance_ranges[i] == 0.0:
                 distance_ranges[i] = 10000000
         
-        print(distance_ranges)
+        # find the smallest obstacle distance and its degree
+        # so I can later let the robot to follow this degree
         min_value = min(distance_ranges)
         min_index = distance_ranges.index(min_value)
 
-        print("min_index: ", min_index)
-        #e(t) = (desired set-point) - (process variable)
+        # convert the degrees from 0 - 359 to degrees for turning
+        # for example, degrees from 0 - 180 is 0 to 90 and 359 - 180 is 0 to -90
         if 0 < min_index and min_index < 180:
-            min_index= -min_index
-        elif 180 < min_index and min_index <= 359:
-            min_index= -(min_index -360)
+            turning_degree= -min_index
+        elif 180 < min_index and min_index < 360:
+            turning_degree= -(min_index -360)
         else: 
-            min_index = min_index
-
-        error = (0 - min_index)
-        print("error: ", error)
+            turning_degree = min_index
+            
+        # implement proportional control u(t) = Kp * e(t) to let the robot follow the person
+        # e(t) = (desired set-point) - (process variable)
+        # desired set-point is 0 because I want the head of the robot to follow the person
+        # process variable is the turning degree
+        error = (0 - turning_degree)
+        
+        # I choose a higher kp so that the robot can better adjust to the 
+        # fact that the person movement is also dynamic
         kp = 1.5*error
-        print("kp: ", kp)
         
-        print("radian: ", kp*(math.pi/180))
+        # convert turning degree to radian and set the twist message
         self.twist.angular.z = kp*(math.pi/180)
-
         self.twist.linear.x = 0.5
-
-
-        # The first entry in the ranges list corresponds with what's directly
-        #   in front of the robot.
-        # degree = 0
-        # count = 0
-        # degree_sum = 0
-        # for degree_distance in data.ranges:
-        #     print("degree_distance:",degree_distance)
-        #     print("degree:",degree)
-        #     if degree_distance > 0 and degree_distance < 0.5: 
-        #         count+=1
-        #         if 0 < degree and degree < 180:
-        #             degree_sum+= -degree
-        #         elif 180 < degree and degree <= 359:
-        #             degree_sum+= -(degree -360)
-        #         else: 
-        #             degree_sum+= degree
-        #     degree += 1
-        # if count == 0:
-        #     average_degree = 0
-        # else:
-        #     average_degree = degree_sum/count
-        
-        # print("average_degree:",average_degree)
-        # print("angular:",(average_degree)*(math.pi/180))
-        # self.twist.angular.z = (average_degree)*(math.pi/180)
-        # self.twist.linear.x = 0.1
-        # if (data.ranges[0] == 0.0 or data.ranges[0] >= distance):
-        #     # Go forward if not close enough to wall.
-        #     self.twist.linear.x = 0.1
-            
-            
-        # else:
-        #     # Close enough to wall, stop.
-        #     self.twist.linear.x = 0
-
-        # Publish msg to cmd_vel.
         self.twist_pub.publish(self.twist)
 
 
@@ -124,5 +86,5 @@ class StopAtWall(object):
 
 if __name__ == '__main__':
     # Declare a node and run it.
-    node = StopAtWall()
+    node = PersonFollower()
     node.run()
