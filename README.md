@@ -48,13 +48,15 @@
 ## Challenges: 
 * Computer Setup: I encountered many challenges using Virtual Box VM to control the robot. I would experience sudden extreme lags every hour and would be forced to send the shutdown signal to the VM. causing my temporary work not to be saved. Thanks to Colin, I am now able to use Virtual Box VM without experiencing extreme lags. Also thanks to David (TA), I am able to type even faster on the VM after adopting his tip in setting Virtual Box to low resolution mode.
 
+* Person Follower: Orginally, I had some difficulty understanding and interpreting the laser scan data. For example, I knew 0 degree is the front of the robot, but I didn't know what other degrees map to which direction. For another exmaple, I didn't understand why there were always 0.0 distance values in the scanner data. Luckily, I was able to resovle these challegnes from finding this Turtlebot3 website (https://emanual.robotis.com/docs/en/platform/turtlebot3/appendix_lds_01/) and understand 0.0 meaning in class and from the TA.
+
 ## Future work: 
 
 ### Driving in a Square
 If I have more time, I will think about how to ensure the robot to stop at the exact same location where it starts to drive in the square. This would probably require putting marks on the ground and let the robot sense those location.
 
 ### Person Follower
-In progress.
+Given more time, I will think about how to change the robot's linear speed according to its distance to the person. For example, if the robot is far away from the person, I want the robot to "catch up" by moving faster towards the robot. If the robot is pretty close to the person, I want to the robot to move slower while following the person.
 
 ### Wall Follower
 In progress. 
