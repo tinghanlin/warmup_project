@@ -41,36 +41,70 @@ class StopAtWall(object):
         #   the robot, set linear velocity based on that information, and
         #   publish to cmd_vel.
 
+
         # The ranges field is a list of 360 number where each number
         #   corresponds to the distance to the closest obstacle from the
         #   LiDAR at various angles. Each measurement is 1 degree apart.
+        
+        #need to count the second min value to 0.0
+
+        print("print type",type(data.ranges))
+        distance_ranges = list(data.ranges)
+
+        for i in range(len(distance_ranges)):
+            if distance_ranges[i] == 0.0:
+                distance_ranges[i] = 10000000
+        
+        print(distance_ranges)
+        min_value = min(distance_ranges)
+        min_index = distance_ranges.index(min_value)
+
+        print("min_index: ", min_index)
+        #e(t) = (desired set-point) - (process variable)
+        if 0 < min_index and min_index < 180:
+            min_index= -min_index
+        elif 180 < min_index and min_index <= 359:
+            min_index= -(min_index -360)
+        else: 
+            min_index = min_index
+
+        error = (0 - min_index)
+        print("error: ", error)
+        kp = 1.5*error
+        print("kp: ", kp)
+        
+        print("radian: ", kp*(math.pi/180))
+        self.twist.angular.z = kp*(math.pi/180)
+
+        self.twist.linear.x = 0.5
+
 
         # The first entry in the ranges list corresponds with what's directly
         #   in front of the robot.
-        degree = 0
-        count = 0
-        degree_sum = 0
-        for degree_distance in data.ranges:
-            print("degree_distance:",degree_distance)
-            print("degree:",degree)
-            if degree_distance > 0 and degree_distance < 0.5: 
-                count+=1
-                if 0 < degree and degree < 180:
-                    degree_sum+= -degree
-                elif 180 < degree and degree <= 359:
-                    degree_sum+= -(degree -360)
-                else: 
-                    degree_sum+= degree
-            degree += 1
-        if count == 0:
-            average_degree = 0
-        else:
-            average_degree = degree_sum/count
+        # degree = 0
+        # count = 0
+        # degree_sum = 0
+        # for degree_distance in data.ranges:
+        #     print("degree_distance:",degree_distance)
+        #     print("degree:",degree)
+        #     if degree_distance > 0 and degree_distance < 0.5: 
+        #         count+=1
+        #         if 0 < degree and degree < 180:
+        #             degree_sum+= -degree
+        #         elif 180 < degree and degree <= 359:
+        #             degree_sum+= -(degree -360)
+        #         else: 
+        #             degree_sum+= degree
+        #     degree += 1
+        # if count == 0:
+        #     average_degree = 0
+        # else:
+        #     average_degree = degree_sum/count
         
-        print("average_degree:",average_degree)
-        print("angular:",(average_degree)*(math.pi/180))
-        self.twist.angular.z = (average_degree)*(math.pi/180)
-        self.twist.linear.x = 0.1
+        # print("average_degree:",average_degree)
+        # print("angular:",(average_degree)*(math.pi/180))
+        # self.twist.angular.z = (average_degree)*(math.pi/180)
+        # self.twist.linear.x = 0.1
         # if (data.ranges[0] == 0.0 or data.ranges[0] >= distance):
         #     # Go forward if not close enough to wall.
         #     self.twist.linear.x = 0.1
