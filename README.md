@@ -64,4 +64,4 @@ In progress.
 ## Takeaways: 
 * In order to control the robot, we need to setup a publisher and a subscriber. The publisher sends messages to the robot and tells the robot what to do next or where to move to. The subscriber receives the scans from the robot about its environment.
 * It is important to give the robot some time in between two messages, so that the robot would have enough time to perform the task described in each message.
-* 
+* The ranges field of the laser scan data is a list of 360 number where each number corresponds to the to the closest obstacle from the LiDAR at various angles. O degrees is head and it goes 360 degrees clockwise on the robot.
