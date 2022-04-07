@@ -22,7 +22,7 @@
 ### Person Follower
 * High-level Description
 
- The task is to drive the robot and let it follow a person. To implement this task, I use the robot's laser scan sensors to find where the person is located relative to the robot. Then, I transform that angle to a turning angle (either clockwise or counterclockwise) so that the robot can turn it heads towards to the person. While trying to face the person, the robot also maintains a constant linear force going forward.
+  The task is to drive the robot and let it follow a person. To implement this task, I use the robot's laser scan sensors to find where the person is located relative to the robot. Then, I transform that angle to a turning angle (either clockwise or counterclockwise) so that the robot can turn it heads towards to the person. If the person is 3 meters directly behind the robot, the robot would turn 180 degree clockwise to face the person. While trying to face the person, the robot also maintains a constant linear force going forward.
  
 * Code explanation
 
