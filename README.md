@@ -48,7 +48,7 @@
 ## Challenges: 
 * Computer Setup: I encountered many challenges using Virtual Box VM to control the robot. I would experience sudden extreme lags every hour and would be forced to send the shutdown signal to the VM. causing my temporary work not to be saved. Thanks to Colin, I am now able to use Virtual Box VM without experiencing extreme lags. Also thanks to David (TA), I am able to type even faster on the VM after adopting his tip in setting Virtual Box to low resolution mode.
 
-* Person Follower: Orginally, I had some difficulty understanding and interpreting the laser scan data. For example, I knew 0 degree is the front of the robot, but I didn't know what other degrees map to which direction. For another exmaple, I didn't understand why there were always 0.0 distance values in the scanner data. Luckily, I was able to resovle these challegnes from finding this Turtlebot3 website (https://emanual.robotis.com/docs/en/platform/turtlebot3/appendix_lds_01/) and understand 0.0 meaning in class and from the TA.
+* Person Follower: Originally, I had some difficulty understanding and interpreting the laser scan data. For example, I knew 0 degree is the front of the robot, but I didn't know what other degrees map to which directions. For another exmaple, I didn't understand why there were always 0.0 distance values in the scanner data. Luckily, I was able to resovle these challegnes from this Turtlebot3 website (https://emanual.robotis.com/docs/en/platform/turtlebot3/appendix_lds_01/) and understand 0.0 meaning in class and from the TA.
 
 ## Future work: 
 
@@ -64,3 +64,4 @@ In progress.
 ## Takeaways: 
 * In order to control the robot, we need to setup a publisher and a subscriber. The publisher sends messages to the robot and tells the robot what to do next or where to move to. The subscriber receives the scans from the robot about its environment.
 * It is important to give the robot some time in between two messages, so that the robot would have enough time to perform the task described in each message.
+* 
