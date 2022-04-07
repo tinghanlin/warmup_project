@@ -56,7 +56,8 @@ class PersonFollower(object):
         min_index = distance_ranges.index(min_value)
 
         # convert the degrees from 0 - 359 to degrees for turning
-        # for example, degrees from 0 - 180 is 0 to 90 and 359 - 180 is 0 to -90
+        # for example, degrees from 0 - 90 is 0 to -90 (i.e. clockwise or turn right) 
+        # and 360 - 270 is 0 to 90  (i.e. counterclockwise or turn left)
         if 0 < min_index and min_index < 180:
             turning_degree= -min_index
         elif 180 < min_index and min_index < 360:
