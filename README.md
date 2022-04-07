@@ -27,6 +27,9 @@
 * Code explanation
 
   I created a node called PersonFollower(), which drives the robot to follow a person. In the node, I initialized the ROS node and set up a publisher for the cmd_vel ROS topic and a subscriber for the scan ROS topic. Then, I defined a process_scan function where I examined the laser scanner data. I replaced 0.0 values in scanner data by another value and found the next smallest obstacle distance and its degree. With this information, I converted the LiDAR degrees from 0 - 359 to turning angles (see the following graph). For example, degrees from 0 - 90 is 0 to -90 (i.e. clockwise or turn right) and 360 - 270 is 0 to 90  (i.e. counterclockwise or turn left). Finally, I used this information to implement proportional control to publish messages to the robot and let the it follow the person.
+  
+  <img src="degree-to-angle.png" width="600" height="300" />
+  
 
 * Gif 
 
