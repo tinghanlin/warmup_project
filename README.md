@@ -38,9 +38,9 @@
 ### Wall Follower
 * High-level Description
 
-  The task is to drive the robot to a wall and let it follow alongside the wall, which can have all kinds of corners. To solve this task, I first let the robot navigate to the closest wall. Once the robot is 0.6 meters away from the wall, I let the robot turn counterclockwise and ensure its LiDAR 90 degree is the closet to the wall through proportional control. With this implementation, the robot can follow the sides of the wall at a fixed distance indefinitely. 
+  The task is to drive the robot to a wall and let it follow alongside the wall, which can have all kinds of corners. To solve this task, I first let the robot navigate to the closest wall (see left hand side of the following graph). Once the robot is 0.6 meters away from the wall, I let the robot turn counterclockwise and ensure its LiDAR 90 degree is the closest to the wall through proportional control (see right hand side of the following graph). With this implementation, the robot can follow the sides of the wall at a fixed distance indefinitely. 
 
- 
+ <img src="wall_follower_illustration.png"/>
 
 * Code explanation
 
@@ -59,12 +59,13 @@
 If I have more time, I will think about how to ensure the robot to stop at the exact same location where it starts to drive in the square. This would probably require putting marks on the ground and let the robot sense those location.
 
 ### Person Follower
-Given more time, I will think about how to change the robot's linear speed according to its distance to the person. For example, if the robot is far away from the person, I want the robot to "catch up" by moving faster towards the robot. If the robot is pretty close to the person, I want to the robot to move slower while following the person.
+I will think about how to change the robot's linear speed according to its distance to the person. For example, if the robot is far away from the person, I want the robot to "catch up" by moving faster towards the robot. If the robot is pretty close to the person, I want to the robot to move slower while following the person.
 
 ### Wall Follower
-In progress. 
+I will consider on how to improve the robot's behavior when it turns to follow a 90-degree angle of the wall. In the current implementation, the robot can turn and follow an inner 90-degree angle of the wall fairly decent (see the first turn in right hand side gif). However, the robot is not sharply following the outer 90-degree angle of the wall (see the right hand side gif). It looks the robot is traveling using a larger turning angle, which is something I wish to improve in the future. Also, I will think about to make the robot travel even closer (< 0.6 meters) to the wall to complete the same task. For example, I can stop the robot's linear speed when it is turning 90 degree instead of having a constant linear speed.
 
 ## Takeaways: 
 * In order to control the robot, we need to setup a publisher and a subscriber. The publisher sends messages to the robot and tells the robot what to do next or where to move to. The subscriber receives the scans from the robot about its environment.
 * It is important to give the robot some time in between two messages, so that the robot would have enough time to perform the task described in each message.
 * The ranges field of the laser scan data is a list of 360 number where each number corresponds to the to the closest obstacle from the LiDAR at various angles. O degrees is head and it goes 360 degrees clockwise on the robot.
+* When letting a robot follow a 90-degree wall at a constant speed, we need to ensure that it has enough space to make the turn, or else it is likely to hit the wall. 
