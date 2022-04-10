@@ -45,7 +45,7 @@
 
 * Gif 
 
-  ![Alt Text](wall_follower.gif)
+  ![Alt Text](wall_follower.gif)![Alt Text](wall_follower_2.gif)
 ## Challenges: 
 * Computer Setup: I encountered many challenges using Virtual Box VM to control the robot. I would experience sudden extreme lags every hour and would be forced to send the shutdown signal to the VM. causing my temporary work not to be saved. Thanks to Colin, I am now able to use Virtual Box VM without experiencing extreme lags. Also thanks to David (TA), I am able to type even faster on the VM after adopting his tip in setting Virtual Box to low resolution mode.
 
