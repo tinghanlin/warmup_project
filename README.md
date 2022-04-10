@@ -44,7 +44,8 @@
 
 * Code explanation
 
-
+  I created a node called WallFollower(), which lets the robot to follow alongside the wall. In the node, I initialized the ROS node and set up a publisher for the cmd_vel ROS topic and a subscriber for the scan ROS topic. Similar to Person Follower, I defined a process_scan function where I examined the laser scanner data. When the robot is more than 0.6 meter away from a wall, the robot would use proportional control with desired set-point equal to 0 degree to travel to the nearest wall. Once the robot is 0.6 meters away from the wall, the robot would again use proportional control but with a desired set-point equal to 90 degrees. This means that robot's 90 degree will always be the closest to the wall while following the wall.
+  
 * Gif 
 
   ![Alt Text](wall_follower.gif)![Alt Text](wall_follower_2.gif)
