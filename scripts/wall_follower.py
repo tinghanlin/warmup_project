@@ -2,7 +2,7 @@
 
 # TOPICS:
 #   cmd_vel: publish to, used for setting robot velocity
-#   scan   : subscribing, where the person is
+#   scan   : subscribing, where the wall is
 
 import rospy
 import math
@@ -14,12 +14,12 @@ from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
 
-class PersonFollower(object):
-    """ This node controls the robot to follow a person """
+class WallFollower(object):
+    """ This node controls the robot to follow a wall """
 
     def __init__(self):
         # Start rospy node.
-        rospy.init_node("person_follower")
+        rospy.init_node("wall_follower")
 
         # Declare our node as a subscriber to the scan topic and
         #   set self.process_scan as the function to be used for callback.
@@ -34,7 +34,7 @@ class PersonFollower(object):
         self.twist = Twist(linear=lin,angular=ang)
 
     def process_scan(self, data):
-        # Determine where the person is using the 360 degree scan data and 
+        # Determine where the wall is using the 360 degree scan data and 
         # set the linear velocity and angular velocity.
 
         # The ranges field is a list of 360 number where each number
@@ -64,54 +64,35 @@ class PersonFollower(object):
             turning_degree= -(min_index -360)
         else: 
             turning_degree = min_index
-            
-        
-        
         
         if min_value >= 0.6:
-            # head toward a wall
+            # the robot is far away from a wall, so it heads toward the closest wall 
 
-            # implement proportional control u(t) = Kp * e(t) to let the robot follow the person
+            # implement proportional control u(t) = Kp * e(t) to let the robot travel to the closest wall
             # e(t) = (desired set-point) - (process variable)
-            # desired set-point is 0 because I want the head of the robot to follow the person
+            # desired set-point is 0 because I want the head of the robot to travel to the closest wall
             # process variable is the turning degree
             error = (0 - turning_degree)
             
-            # I choose a higher kp so that the robot can better adjust to the 
-            # fact that the person movement is also dynamic
+            # I choose a higher kp so that the robot can better adjust to dynamic environment
             kp = 1.5*error
 
             # convert turning degree to radian and set the twist message
             self.twist.angular.z = kp*(math.pi/180)
             self.twist.linear.x = 0.5
         else:
-            #turn left
+            # the robot is close to a wall, so it turns left to start following alongside the wall
+            # again, the trick is to use proportional control where we make desired set-point to 90
+            # since 90 degree should be the closest distance to the wall
             error = (90 - turning_degree)
-
-            #make sure 90 is the closet distance to the wall
-            # 
-        
+            
             kp = 0.7*error
 
             # convert turning degree to radian and set the twist message
             self.twist.angular.z = kp*(math.pi/180)
             self.twist.linear.x = 0.05
 
-            # if 90 degrees has the smallest distance:
-            #     # follow the wall
-            #     self.twist.angular.z = kp*(math.pi/180)
-            #     self.twist.linear.x = 0.2
-  
-            # else if 0 degrees has smaller distance:
-            #     # turn left
-            #     self.twist.angular.z = 90*(math.pi/180)
-            #     self.twist.linear.x = 0.0
-            
-
         self.twist_pub.publish(self.twist)
-
-    
-
 
     def run(self):
         # Keep the program alive.
@@ -119,5 +100,5 @@ class PersonFollower(object):
 
 if __name__ == '__main__':
     # Declare a node and run it.
-    node = PersonFollower()
+    node = WallFollower()
     node.run()
