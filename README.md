@@ -38,6 +38,8 @@
 ### Wall Follower
 * High-level Description
 
+  The task is to drive the robot to a wall and let it follow alongside the wall, which can have all kinds of corners. To solve this task, I first let the robot navigate to the closest wall. Once the robot is 0.6 meters away from the wall, I let the robot turn counterclockwise and ensure its LiDAR 90 degree is the closet to the wall through proportional control. With this implementation, the robot can follow the sides of the wall at a fixed distance indefinitely. 
+
  
 
 * Code explanation
